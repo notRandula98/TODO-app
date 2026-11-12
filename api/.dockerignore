@@ -1,0 +1,14 @@
+node_modules
+dist
+coverage
+.git
+.env
+.env.*
+*.log
+*.tsbuildinfo
+**/*.db
+**/*.db-*
+db
+test
+.codex
+.agents
