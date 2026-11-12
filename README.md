@@ -74,7 +74,25 @@ npm run start:dev
 
 Keep this terminal running. With the configuration above, TypeORM automatically creates `api/todo.db` and the `tasks` table at startup. No separate SQLite installation, database server, migration command, or seed step is required. The initial task list is empty. Tasks persist in this file across restarts. If you choose another database path, create its parent directory first.
 
-Do not run `npm run db:init` for this setup: it initializes a separate `t_tasks` table that the API does not use.
+### Optional: initialize the supplied SQL schema
+
+The API's `package.json` includes this script:
+
+```json
+"db:init": "node scripts/init-db.mjs"
+```
+
+Run it from the `api` directory after installing dependencies:
+
+```powershell
+npm run db:init
+```
+
+It creates `api/todo.db` (and any missing parent directories) and executes `api/db/query.sql` to create the `t_tasks` table. Running it again preserves existing tables and data; it does not migrate existing tables. An optional shell variable, `DATABASE_PATH`, overrides the file location; this script does not load `api/.env` automatically.
+
+This step is optional for running the application: the API uses the separate `tasks` table, which TypeORM creates on startup as described above.
+
+### Verify the backend
 
 Verify the backend in another terminal:
 
