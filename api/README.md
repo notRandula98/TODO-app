@@ -33,6 +33,27 @@ $ npm install
 
 ## Compile and run the project
 
+### Create SQLite from a SQL file
+
+```bash
+npm run db:init
+```
+
+This creates `api/todo.db` and executes `db/query.sql`, which defines
+`t_tasks` with an auto-incrementing integer ID and the title/status checks.
+You can run it again safely: `CREATE TABLE IF NOT EXISTS` keeps existing
+tables and data. It does not update the schema of an existing table.
+Set `DATABASE_PATH` to create the database at another location (relative paths
+are resolved from the `api` directory), for example in PowerShell:
+
+```powershell
+$env:DATABASE_PATH = 'db/todo.db'
+npm run db:init
+```
+
+This initializes the supplied SQL schema only; the API uses the separate
+`tasks` table described below.
+
 Run commands from the `api` directory. The app uses TypeORM with the
 `better-sqlite3` driver and stores tasks in `api/todo.db`, in the `tasks` table.
 The connection is configured in `src/app.module.ts`; the table columns are
