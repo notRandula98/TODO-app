@@ -17,7 +17,7 @@ RUN npm run build && npm prune --omit=dev
 FROM node:24-bookworm-slim AS runtime
 
 ENV NODE_ENV=production
-ENV PORT=3000
+ENV PORT=4000
 ENV DATABASE_PATH=/app/data/todo.db
 
 WORKDIR /app
@@ -29,5 +29,5 @@ COPY --from=build --chown=node:node /app/dist ./dist
 RUN mkdir -p /app/data && chown node:node /app/data
 
 USER node
-EXPOSE 3000
+EXPOSE 4000
 CMD ["node", "dist/main.js"]

@@ -68,6 +68,14 @@ it in any environment. `DATABASE_PATH` overrides the SQLite file location.
 
 ### Docker Compose
 
+Local start scripts load `api/.env`. Set `PORT=4000` there and restart with
+`npm run start:dev`. `API_PORT` is accepted locally when `PORT` is absent;
+the default is 3000. Existing shell variables override `.env` values.
+
+For Docker Compose, set `API_PORT=4000` in `api/.env` and run
+`docker compose --env-file .env -f ../compose.yaml up --build -d --wait`
+from `api`. This publishes port 4000 while the container uses `PORT=3000`.
+
 Start Docker Desktop with Linux containers enabled. From this `api` directory:
 
 ```bash
@@ -75,7 +83,7 @@ docker compose -f ../compose.yaml up --build -d --wait
 docker compose -f ../compose.yaml logs -f backend
 ```
 
-The API is available at http://localhost:3000/tasks. Compose builds the
+The API is available at http://localhost:4000/tasks. Compose builds the
 multi-stage `Dockerfile` and stores SQLite data in the `backend-data` named
 volume, which survives container restarts and rebuilds. It enables schema
 synchronization for local use so a fresh database gets its tables automatically.
